@@ -1,0 +1,1 @@
+module.exports = {view: require('./lib/views/transfer'), model: require('./lib/models/transfer')};
