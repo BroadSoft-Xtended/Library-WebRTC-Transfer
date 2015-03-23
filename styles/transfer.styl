@@ -12,13 +12,8 @@
 		.reject
 			color red
 
-	.enableTransfer.started .transfer
-		{fadeIn}
-
-	.enableTransfer.started.transfer-shown .transferPopup
+	.transferPopup.enableTransfer.started.transfer-shown
 		{fadeInPopup}
 
-	.enableTransfer.connected .transfer, 
-	.enableTransfer.disconnected .transfer,
-	.enableTransfer.not(.transfer-shown) .transferPopup
+	.transferPopup.enableTransfer.not(.transfer-shown)
 		{fadeOut}

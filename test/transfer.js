@@ -13,53 +13,27 @@ describe('transfer', function() {
     testUA.createCore('sipstack', config);
     testUA.mockWebRTC();
     testUA.createModelAndView('transfer', {transfer: require('../'), callcontrol: require('webrtc-callcontrol')});
+    eventbus = bdsft_client_instances.eventbus_test;
   });
 
-  it('transfer:', function() {
-    
-    testUA.isVisible(videobar.transfer, false);
-  });
   it('transferPopup', function() {
     
     expect(transferview.attached).toEqual(false);
   });
-  it('transfer on call started with enableTransfer is false', function() {
-    configuration.enableTransfer = false;
-    
-    testUA.startCall();
-    testUA.isVisible(videobar.transfer, false);
-  });
-  it('transfer on call started', function() {
-    
-    testUA.startCall();
-    testUA.isVisible(videobar.transfer, true);
-  });
   it('transferPopup on transfer triggered', function() {
-    
     testUA.startCall();
-    videobar.transfer.trigger("click");
-    testUA.isVisible(transferview.view, true);
-    videobar.transfer.trigger("click");
-    testUA.isVisible(transferview.view, false);
+    testUA.isVisible(transferview.transferPopup, false);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    testUA.isVisible(transferview.transferPopup, true);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    testUA.isVisible(transferview.transferPopup, false);
   });
   it('transferPopup on transfer rejected', function() {
-    
     testUA.startCall();
-    videobar.transfer.trigger("click");
-    testUA.isVisible(transferview.view, true);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    testUA.isVisible(transferview.transferPopup, true);
     transferview.reject.trigger("click");
-    testUA.isVisible(transferview.view, false);
-  });
-  it('transferPopup on call started', function() {
-    
-    testUA.startCall();
-    expect(transferview.attached).toEqual(false);
-  });
-  it('transfer on call ended', function() {
-    
-    testUA.startCall();
-    testUA.endCall();
-    testUA.isVisible(videobar.transfer, false);
+    testUA.isVisible(transferview.transferPopup, false);
   });
   it('hold call and invite target', function() {
     configuration.enableAutoAnswer = false;
@@ -76,7 +50,7 @@ describe('transfer', function() {
     });
     testUA.startCall(targetSession);
     expect(sipstack.activeSession.id).toEqual(targetSession.id);
-    testUA.isVisible(videobar.hangup, true);
+    // testUA.isVisible(videobar.hangup, true);
   });
 
   it('hold call and invite target failed', function() {
@@ -93,7 +67,7 @@ describe('transfer', function() {
     });
     testUA.failCall(targetSession);
     expect(sipstack.activeSession.id).toEqual(sessionToTransfer.id);
-    testUA.isVisible(videobar.hangup, true);
+    // testUA.isVisible(videobar.hangup, true);
   });
   it('acceptTransfer triggered with empty target', function() {
     var transferTarget = null;
@@ -102,11 +76,12 @@ describe('transfer', function() {
       transferTarget = target;
     };
     testUA.startCall();
-    videobar.transfer.trigger("click");
-    testUA.isVisible(transferview.view, true);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    testUA.isVisible(transferview.transferPopup, true);
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.view, true);
+    testUA.isVisible(transferview.transferPopup, true);
     expect(transferTarget).toEqual(null);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
   });
   it('acceptTransfer triggered with target', function() {
     var transferTarget = null;
@@ -115,11 +90,11 @@ describe('transfer', function() {
       transferTarget = target;
     };
     testUA.startCall();
-    videobar.transfer.trigger("click");
-    testUA.isVisible(transferview.view, true);
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    testUA.isVisible(transferview.transferPopup, true);
     testUA.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.view, false);
+    testUA.isVisible(transferview.transferPopup, false);
     expect(transferTarget).toEqual("sip:1000@other.domain.to");
   });
   it('acceptTransfer triggered with target and with attended checked', function() {
@@ -133,7 +108,7 @@ describe('transfer', function() {
       attendedTransferTarget = target;
     };
     testUA.startCall();
-    videobar.transfer.trigger("click");
+    eventbus.toggleView(core.constants.VIEW_TRANSFER);
     testUA.check(transferview.typeAttended, true);
     testUA.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
