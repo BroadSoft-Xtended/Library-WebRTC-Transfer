@@ -9,8 +9,8 @@
       "dependencies": {
         "webrtc-core": {
           "version": "0.0.1",
-          "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-79597-86a33188/git-cache-d28ec2cc6712/ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
-          "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
+          "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-79597-86a33188/git-cache-d28ec2cc6712/328fff372be75393bf00b22063f7c6d296270334",
+          "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#328fff372be75393bf00b22063f7c6d296270334",
           "dependencies": {
             "ejs": {
               "version": "1.0.0",
@@ -121,8 +121,8 @@
           "dependencies": {
             "webrtc-core": {
               "version": "0.0.1",
-              "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-79597-86a33188/git-cache-4be4cae7ead0/ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
-              "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
+              "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-79597-86a33188/git-cache-4be4cae7ead0/328fff372be75393bf00b22063f7c6d296270334",
+              "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#328fff372be75393bf00b22063f7c6d296270334",
               "dependencies": {
                 "ejs": {
                   "version": "1.0.0",
@@ -232,8 +232,8 @@
     },
     "webrtc-core": {
       "version": "0.0.1",
-      "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-57541-855bf52f/git-cache-052429679611/ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
-      "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#ad8c7db88eb51d6f7b19e1ee8a7092c5d07a2086",
+      "from": "../../../../../../var/folders/w5/d_jq90111h9g07_m1bwjvnbr0000gp/T/npm-57541-855bf52f/git-cache-052429679611/328fff372be75393bf00b22063f7c6d296270334",
+      "resolved": "git+ssh://git.broadsoftlabs.net:7922/wrtc/webrtc-core.git#328fff372be75393bf00b22063f7c6d296270334",
       "dependencies": {
         "ejs": {
           "version": "1.0.0",
