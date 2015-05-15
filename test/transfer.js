@@ -17,20 +17,19 @@ describe('transfer', function() {
   });
 
   it('transferPopup', function() {
-    
-    expect(transferview.attached).toEqual(false);
+    expect(transferview.attached).toEqual(undefined);
   });
   it('transferPopup on transfer triggered', function() {
     testUA.startCall();
     testUA.isVisible(transferview.transferPopup, false);
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = true;
     testUA.isVisible(transferview.transferPopup, true);
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = false;
     testUA.isVisible(transferview.transferPopup, false);
   });
   it('transferPopup on transfer rejected', function() {
     testUA.startCall();
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = true;
     testUA.isVisible(transferview.transferPopup, true);
     transferview.reject.trigger("click");
     testUA.isVisible(transferview.transferPopup, false);
@@ -76,12 +75,11 @@ describe('transfer', function() {
       transferTarget = target;
     };
     testUA.startCall();
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = true;
     testUA.isVisible(transferview.transferPopup, true);
     transferview.accept.trigger("click");
     testUA.isVisible(transferview.transferPopup, true);
     expect(transferTarget).toEqual(null);
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
   });
   it('acceptTransfer triggered with target', function() {
     var transferTarget = null;
@@ -90,7 +88,7 @@ describe('transfer', function() {
       transferTarget = target;
     };
     testUA.startCall();
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = true;
     testUA.isVisible(transferview.transferPopup, true);
     testUA.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
@@ -108,7 +106,7 @@ describe('transfer', function() {
       attendedTransferTarget = target;
     };
     testUA.startCall();
-    eventbus.toggleView(core.constants.VIEW_TRANSFER);
+    transfer.visible = true;
     testUA.check(transferview.typeAttended, true);
     testUA.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
