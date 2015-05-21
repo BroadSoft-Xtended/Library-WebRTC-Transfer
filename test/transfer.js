@@ -13,7 +13,7 @@ describe('transfer', function() {
     testUA.createCore('sipstack', config);
     testUA.mockWebRTC();
     testUA.createModelAndView('transfer', {transfer: require('../'), callcontrol: require('webrtc-callcontrol')});
-    eventbus = bdsft_client_instances.eventbus_test;
+    eventbus = bdsft_client_instances.test.eventbus;
   });
 
   it('transferPopup', function() {
