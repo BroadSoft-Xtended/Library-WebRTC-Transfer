@@ -8,9 +8,7 @@ describe('transfer', function() {
     core = require('webrtc-core');
     testUA = core.testUA;
     ExSIP = core.exsip;
-    config = {enableTransfer: true, enableCallStats: false};
-    testUA.createCore('configuration', config);
-    testUA.createCore('sipstack', config);
+    testUA.createCore('sipstack');
     testUA.mockWebRTC();
     testUA.createModelAndView('transfer', {transfer: require('../'), callcontrol: require('webrtc-callcontrol')});
     eventbus = bdsft_client_instances.test.eventbus;
@@ -35,7 +33,7 @@ describe('transfer', function() {
     testUA.isVisible(transferview.transferPopup, false);
   });
   it('hold call and invite target', function() {
-    configuration.enableAutoAnswer = false;
+    sipstack.enableAutoAnswer = false;
     
     testUA.connect();
     var sessionToTransfer = testUA.outgoingSession({
@@ -53,7 +51,7 @@ describe('transfer', function() {
   });
 
   it('hold call and invite target failed', function() {
-    configuration.enableAutoAnswer = false;
+    sipstack.enableAutoAnswer = false;
     
     testUA.connect();
     var sessionToTransfer = testUA.outgoingSession({

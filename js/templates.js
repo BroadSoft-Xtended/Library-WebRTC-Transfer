@@ -16,7 +16,7 @@
 
     // transfer.jade compiled template
     templatizer["transfer"] = function tmpl_transfer() {
-        return '<div class="bdsft-client"><div class="transferPopup fadeable popup classes"><div class="title">Transfer</div><div><input type="text" placeholder="To Target" class="target"/><input type="checkbox" class="typeAttended"/>Attended</div><div class="actions"><button type="button" class="accept button">Transfer</button><button type="button" class="reject button">Cancel</button></div></div></div>';
+        return '<div class="bdsft-client"><div class="transferPopup fadeable popup classes centered"><div class="title">Transfer</div><div><input type="text" placeholder="To Target" class="target"/><input type="checkbox" class="typeAttended"/>Attended</div><div class="actions"><button type="button" class="accept button">Transfer</button><button type="button" class="reject button">Cancel</button></div></div></div>';
     };
 
     return templatizer;
