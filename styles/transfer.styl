@@ -1,15 +1,20 @@
-.bdsft-client
+.bdsft-webrtc
 	.transferPopup
 		color white
 		.target
 			width 200px
+			line-height 30px
+			margin 5px
+			margin-left 0px
 		.actions
 			padding 10px
+			button
+				margin-right 10px
 		.reject
 			color red
 
 	.transferPopup.enableTransfer.started.transfer-shown
 		{fadeInPopup}
 
-	.transferPopup.enableTransfer.not(.transfer-shown)
+	.transferPopup.enableTransfer:not(.transfer-shown)
 		{fadeOut}

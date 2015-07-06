@@ -10,8 +10,9 @@ describe('transfer', function() {
     ExSIP = core.exsip;
     testUA.createCore('sipstack');
     testUA.mockWebRTC();
-    testUA.createModelAndView('transfer', {transfer: require('../'), callcontrol: require('webrtc-callcontrol')});
-    eventbus = bdsft_client_instances.test.eventbus;
+    testUA.createModelAndView('transfer', {transfer: require('../'), 
+      callcontrol: require('webrtc-callcontrol'),
+      messages: require('webrtc-messages')});
   });
 
   it('transferPopup', function() {
@@ -19,18 +20,18 @@ describe('transfer', function() {
   });
   it('transferPopup on transfer triggered', function() {
     testUA.startCall();
-    testUA.isVisible(transferview.transferPopup, false);
+    testUA.isVisible(transferview.view.find('.transferPopup'), false);
     transfer.visible = true;
-    testUA.isVisible(transferview.transferPopup, true);
+    testUA.isVisible(transferview.view.find('.transferPopup'), true);
     transfer.visible = false;
-    testUA.isVisible(transferview.transferPopup, false);
+    testUA.isVisible(transferview.view.find('.transferPopup'), false);
   });
   it('transferPopup on transfer rejected', function() {
     testUA.startCall();
     transfer.visible = true;
-    testUA.isVisible(transferview.transferPopup, true);
+    testUA.isVisible(transferview.view.find('.transferPopup'), true);
     transferview.reject.trigger("click");
-    testUA.isVisible(transferview.transferPopup, false);
+    testUA.isVisible(transferview.view.find('.transferPopup'), false);
   });
   it('hold call and invite target', function() {
     sipstack.enableAutoAnswer = false;
@@ -72,11 +73,11 @@ describe('transfer', function() {
     ExSIP.UA.prototype.transfer = function(target, rtcSession) {
       transferTarget = target;
     };
-    testUA.startCall();
+    sipstack.callState = 'started';
     transfer.visible = true;
-    testUA.isVisible(transferview.transferPopup, true);
+    testUA.isVisible(transferview.view.find('.transferPopup'), true);
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.transferPopup, true);
+    testUA.isVisible(transferview.view.find('.transferPopup'), true);
     expect(transferTarget).toEqual(null);
   });
   it('acceptTransfer triggered with target', function() {
@@ -85,29 +86,12 @@ describe('transfer', function() {
     ExSIP.UA.prototype.transfer = function(target, rtcSession) {
       transferTarget = target;
     };
-    testUA.startCall();
+    sipstack.callState = 'started';
     transfer.visible = true;
-    testUA.isVisible(transferview.transferPopup, true);
+    testUA.isVisible(transferview.view.find('.transferPopup'), true);
     testUA.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.transferPopup, false);
+    testUA.isVisible(transferview.view.find('.transferPopup'), false);
     expect(transferTarget).toEqual("sip:1000@other.domain.to");
-  });
-  it('acceptTransfer triggered with target and with attended checked', function() {
-    var basicTransferTarget = null;
-    var attendedTransferTarget = null;
-    
-    ExSIP.UA.prototype.transfer = function(target, rtcSession) {
-      basicTransferTarget = target;
-    };
-    ExSIP.UA.prototype.attendedTransfer = function(target, rtcSession) {
-      attendedTransferTarget = target;
-    };
-    testUA.startCall();
-    transfer.visible = true;
-    testUA.check(transferview.typeAttended, true);
-    testUA.val(transferview.target, "1000@other.domain.to");
-    transferview.accept.trigger("click");
-    expect(attendedTransferTarget).toEqual("sip:1000@other.domain.to");
   });
 });
