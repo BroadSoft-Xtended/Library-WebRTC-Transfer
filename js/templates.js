@@ -19,5 +19,10 @@
         return '<div class="bdsft-webrtc"><div class="transferPopup fadeable popup classes centered"><div class="title">Transfer</div><div><input type="text" placeholder="To Target" class="target"/></div><div class="actions"><button type="button" class="accept button">Transfer</button><button type="button" class="reject button">Cancel</button></div></div></div>';
     };
 
+    // transfercontrol.jade compiled template
+    templatizer["transfercontrol"] = function tmpl_transfercontrol() {
+        return '<div class="bdsft-webrtc"><div class="cell cell-transfer"><div class="transfer icon fadeable"><a href="" title="Transfer" class="icon-transfer"></a></div></div></div>';
+    };
+
     return templatizer;
 }));

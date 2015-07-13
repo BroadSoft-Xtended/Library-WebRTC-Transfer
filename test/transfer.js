@@ -8,11 +8,16 @@ describe('transfer', function() {
     core = require('webrtc-core');
     testUA = core.testUA;
     ExSIP = core.exsip;
-    testUA.createCore('sipstack');
+    testUA.createModelAndView('sipstack', {
+      sipstack: require('webrtc-sipstack')
+    });
     testUA.mockWebRTC();
     testUA.createModelAndView('transfer', {transfer: require('../'), 
       callcontrol: require('webrtc-callcontrol'),
-      messages: require('webrtc-messages')});
+      messages: require('webrtc-messages'),
+      sipstack: require('webrtc-sipstack'),
+      sound: require('webrtc-sound')
+    });
   });
 
   it('transferPopup', function() {
