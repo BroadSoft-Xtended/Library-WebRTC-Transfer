@@ -1,18 +1,11 @@
-var jsdom = require('mocha-jsdom');
-expect = require('expect');
-jsdom({});
-
+test = require('../node_modules/webrtc-sipstack/test/includes/common')(require('../node_modules/webrtc-core/test/includes/common'));
 describe('transfer', function() {
 
   before(function(){
-    core = require('webrtc-core');
-    testUA = core.testUA;
-    ExSIP = core.exsip;
-    testUA.createModelAndView('sipstack', {
+    test.createModelAndView('sipstack', {
       sipstack: require('webrtc-sipstack')
     });
-    testUA.mockWebRTC();
-    testUA.createModelAndView('transfer', {transfer: require('../'), 
+    test.createModelAndView('transfer', {transfer: require('../'), 
       callcontrol: require('webrtc-callcontrol'),
       messages: require('webrtc-messages'),
       sipstack: require('webrtc-sipstack'),
@@ -24,79 +17,77 @@ describe('transfer', function() {
     expect(transferview.attached).toEqual(undefined);
   });
   it('transferPopup on transfer triggered', function() {
-    testUA.startCall();
-    testUA.isVisible(transferview.view.find('.transferPopup'), false);
+    test.startCall();
+    test.isVisible(transferview.view.find('.transferPopup'), false);
     transfer.visible = true;
-    testUA.isVisible(transferview.view.find('.transferPopup'), true);
+    test.isVisible(transferview.view.find('.transferPopup'), true);
     transfer.visible = false;
-    testUA.isVisible(transferview.view.find('.transferPopup'), false);
+    test.isVisible(transferview.view.find('.transferPopup'), false);
   });
   it('transferPopup on transfer rejected', function() {
-    testUA.startCall();
+    test.startCall();
     transfer.visible = true;
-    testUA.isVisible(transferview.view.find('.transferPopup'), true);
+    test.isVisible(transferview.view.find('.transferPopup'), true);
     transferview.reject.trigger("click");
-    testUA.isVisible(transferview.view.find('.transferPopup'), false);
+    test.isVisible(transferview.view.find('.transferPopup'), false);
   });
   it('hold call and invite target', function() {
     sipstack.enableAutoAnswer = false;
     
-    testUA.connect();
-    var sessionToTransfer = testUA.outgoingSession({
+    test.connect();
+    var sessionToTransfer = test.outgoingSession({
       id: "sessionToTransfer"
     });
-    testUA.startCall(sessionToTransfer);
+    test.startCall(sessionToTransfer);
     expect(sipstack.activeSession.id).toEqual(sessionToTransfer.id);
     sessionToTransfer.hold();
-    var targetSession = testUA.outgoingSession({
+    var targetSession = test.outgoingSession({
       id: "targetSession"
     });
-    testUA.startCall(targetSession);
+    test.startCall(targetSession);
     expect(sipstack.activeSession.id).toEqual(targetSession.id);
-    // testUA.isVisible(videobar.hangup, true);
+    // test.isVisible(videobar.hangup, true);
   });
 
   it('hold call and invite target failed', function() {
     sipstack.enableAutoAnswer = false;
     
-    testUA.connect();
-    var sessionToTransfer = testUA.outgoingSession({
+    test.connect();
+    var sessionToTransfer = test.outgoingSession({
       id: "sessionToTransfer"
     });
-    testUA.startCall(sessionToTransfer);
+    test.startCall(sessionToTransfer);
     sessionToTransfer.hold();
-    var targetSession = testUA.outgoingSession({
+    var targetSession = test.outgoingSession({
       id: "targetSession"
     });
-    testUA.failCall(targetSession);
+    test.failCall(targetSession);
     expect(sipstack.activeSession.id).toEqual(sessionToTransfer.id);
-    // testUA.isVisible(videobar.hangup, true);
+    // test.isVisible(videobar.hangup, true);
   });
   it('acceptTransfer triggered with empty target', function() {
     var transferTarget = null;
-    
-    ExSIP.UA.prototype.transfer = function(target, rtcSession) {
+    test.connectAndStartCall();
+    sipstack.ua.transfer = function(target, rtcSession) {
       transferTarget = target;
     };
-    sipstack.callState = 'started';
     transfer.visible = true;
-    testUA.isVisible(transferview.view.find('.transferPopup'), true);
+    test.isVisible(transferview.view.find('.transferPopup'), true);
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.view.find('.transferPopup'), true);
+    test.isVisible(transferview.view.find('.transferPopup'), true);
     expect(transferTarget).toEqual(null);
   });
   it('acceptTransfer triggered with target', function() {
     var transferTarget = null;
-    
-    ExSIP.UA.prototype.transfer = function(target, rtcSession) {
+    test.connectAndStartCall();
+    sipstack.ua.transfer = function(target, rtcSession) {
       transferTarget = target;
     };
-    sipstack.callState = 'started';
     transfer.visible = true;
-    testUA.isVisible(transferview.view.find('.transferPopup'), true);
-    testUA.val(transferview.target, "1000@other.domain.to");
+    test.isVisible(transferview.view.find('.transferPopup'), true);
+    test.val(transferview.target, "1000@other.domain.to");
     transferview.accept.trigger("click");
-    testUA.isVisible(transferview.view.find('.transferPopup'), false);
+    test.isVisible(transferview.view.find('.transferPopup'), false);
     expect(transferTarget).toEqual("sip:1000@other.domain.to");
   });
 });
