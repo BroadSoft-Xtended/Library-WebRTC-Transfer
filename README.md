@@ -2,9 +2,7 @@
 
 Handles transfer of a call.
 
-Model : bdsft_webrtc.default.transfer
-
-View : bdsft_webrtc.default.transferview
+Namespace : bdsft_webrtc.default.transfer
 
 Dependencies : [Call Control](https://github.com/BroadSoft-Xtended/Library-WebRTC-CallControl), [Messages](https://github.com/BroadSoft-Xtended/Library-WebRTC-Messages), [SIP Stack](https://github.com/BroadSoft-Xtended/Library-WebRTC-SIPStack), [Sound](https://github.com/BroadSoft-Xtended/Library-WebRTC-Sound)
 
