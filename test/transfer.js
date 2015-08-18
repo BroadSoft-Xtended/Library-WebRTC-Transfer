@@ -2,6 +2,7 @@ test = require('../node_modules/webrtc-sipstack/test/includes/common')(require('
 describe('transfer', function() {
 
   before(function(){
+    test.setupLocalStorage();
     test.createModelAndView('sipstack', {
       sipstack: require('webrtc-sipstack')
     });
@@ -9,7 +10,9 @@ describe('transfer', function() {
       callcontrol: require('webrtc-callcontrol'),
       messages: require('webrtc-messages'),
       sipstack: require('webrtc-sipstack'),
-      sound: require('webrtc-sound')
+      sound: require('webrtc-sound'),
+      history: require('webrtc-history'),
+      stats: require('webrtc-stats')
     });
   });
 
