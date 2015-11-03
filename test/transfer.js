@@ -1,10 +1,13 @@
-test = require('../node_modules/webrtc-sipstack/test/includes/common')(require('../node_modules/webrtc-core/test/includes/common'));
+test = require('../node_modules/webrtc-sipstack/test/includes/common')(require('../node_modules/bdsft-sdk-test/lib/common'));
 describe('transfer', function() {
 
   before(function(){
     test.setupLocalStorage();
     test.createModelAndView('sipstack', {
-      sipstack: require('webrtc-sipstack')
+      sipstack: require('webrtc-sipstack'),
+      eventbus: require('bdsft-sdk-eventbus'),
+      debug: require('bdsft-sdk-debug'),
+      core: require('webrtc-core')
     });
     test.createModelAndView('transfer', {transfer: require('../'), 
       callcontrol: require('webrtc-callcontrol'),
