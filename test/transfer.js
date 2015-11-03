@@ -15,7 +15,10 @@ describe('transfer', function() {
       sipstack: require('webrtc-sipstack'),
       sound: require('webrtc-sound'),
       history: require('webrtc-history'),
-      stats: require('webrtc-stats')
+      stats: require('webrtc-stats'),
+      eventbus: require('bdsft-sdk-eventbus'),
+      debug: require('bdsft-sdk-debug'),
+      core: require('webrtc-core')
     });
   });
 
